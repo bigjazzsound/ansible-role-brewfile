@@ -1,0 +1,13 @@
+galaxy_info:
+  author: bigjazzsound
+  role_name: bigjazzsound
+  description: Role for managing a Brewfile
+  license: BSD-3-Clause
+  min_ansible_version: "2.14"
+  platforms:
+    - name: MacOSX
+      versions:
+        - all
+  galaxy_tags: []
+
+dependencies: []

@@ -1,0 +1,6 @@
+---
+- name: Manage Brewfile
+  ansible.builtin.template:
+    src: templates/brewfile.j2
+    dest: "{{ brew_brewfile }}"
+    mode: "0600"

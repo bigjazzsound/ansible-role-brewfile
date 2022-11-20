@@ -1,0 +1,43 @@
+{% for tap in brew_packages.taps | default([]) %}
+tap "{{ tap.name | default(tap) }}"
+{%- for k, v in (tap.opts | default({})).items() %}{{ ", %s: %s" % (k, v) }}{% endfor %}
+{%- if tap.conditional is defined %}
+ {{ tap.conditional }}
+{% endif %}
+
+{% endfor -%}
+
+{% for brew in brew_packages.brews | default([]) %}
+brew "{{ brew.name | default(brew) }}"
+{%- for k, v in (brew.opts | default({})).items() %}{{ ", %s: %s" % (k, v) }}{% endfor %}
+{%- if brew.conditional is defined %}
+ {{ brew.conditional }}
+{% endif %}
+
+{% endfor -%}
+
+{% if brew_packages.cask_args is defined %}
+cask_args {%- for k, v in (pkg.opts | default({})).items() %}{{ ", %s: %s" % (k, v) }}{% endfor %}
+{% endif %}
+
+{% for cask in brew_packages.casks | default([]) %}
+cask "{{ cask.name | default(cask) }}"
+{%- for k, v in (cask.opts | default({})).items() %}{{ ", %s: %s" % (k, v) }}{% endfor %}
+{%- if cask.conditional is defined %}
+ {{ cask.conditional }}
+{% endif %}
+
+{% endfor -%}
+
+{% for app in brew_packages.apps | default([]) %}
+mas "{{ app.name }}", id: {{ app.id }}
+{%- for k, v in (app.opts | default({})).items() %}{{ ", %s: %s" % (k, v) }}{% endfor %}
+{%- if app.conditional is defined %}
+ {{ app.conditional }}
+{% endif %}
+
+{% endfor -%}
+
+{% for cask in brew_packages.whalebrew | default([]) %}
+cask "{{ whalebrew.name | default(whalebrew) }}"
+{% endfor -%}

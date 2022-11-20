@@ -1,0 +1,20 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    brew_packages:
+      taps:
+        - "homebrew/cask"
+      brews:
+        - jq
+        - name: "wget"
+          opts:
+            args:
+              - "HEAD"
+              - "only-dependencies"
+        - name: "fzf"
+          conditional: if OS.linux?
+  tasks:
+    - name: "Include bigjazzsound.brewfile"
+      ansible.builtin.include_role:
+        name: "bigjazzsound.brewfile"

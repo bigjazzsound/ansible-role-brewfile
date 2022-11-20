@@ -1,0 +1,21 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: homebrew/brew:latest
+    pre_build_image: true
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_VERBOSITY: 2
+verifier:
+  name: testinfra
+  options:
+    v: true
+lint: |
+  yamllint .
+  ansible-lint
+  black molecule/default/tests
