@@ -17,7 +17,9 @@ brew "{{ brew.name | default(brew) }}"
 {% endfor -%}
 
 {% if brew_packages.cask_args is defined %}
-cask_args {%- for k, v in (pkg.opts | default({})).items() %}{{ ", %s: %s" % (k, v) }}{% endfor %}
+cask_args
+{%- for k, v in (brew_packages.cask_args | default({})).items() %}
+{{ " %s: %s%s" % (k, v, loop.last | ternary("", ",")) }}{% endfor %}
 {% endif %}
 
 {% for cask in brew_packages.casks | default([]) %}
